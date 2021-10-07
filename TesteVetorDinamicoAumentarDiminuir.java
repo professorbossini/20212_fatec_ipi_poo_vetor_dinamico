@@ -19,7 +19,7 @@ public class TesteVetorDinamicoAumentarDiminuir {
             }
             v.exibir();
             System.out.println("================================================================");
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         }
 
     }
