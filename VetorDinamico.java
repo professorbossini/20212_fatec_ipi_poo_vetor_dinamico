@@ -17,12 +17,65 @@ public class VetorDinamico{
         // return false;
     }
 
+    public boolean estaVazio(){
+        return this.qtde <= 0;
+    }
+
     public void adicionar (int elemento){
-        if(!estaCheio()){
-            this.elementos[this.qtde] = elemento;
-            this.qtde++;        
+        if (estaCheio())
+            aumentarCapacidade();
+        this.elementos[this.qtde] = elemento;
+        this.qtde++;
+        // if(!estaCheio()){
+        //     this.elementos[this.qtde] = elemento;
+        //     this.qtde++;        
+        // }
+    }
+
+    public void remover (){
+        if (!estaVazio()){
+            this.qtde--;
+            if (this.cap > 4 && this.qtde <= this.cap / 4){
+                this.reduzirCapacidade();
+            }
         }
     }
+
+    private void aumentarCapacidade () {
+        //1. Alocar um vetor novo com o dobro da capacidade
+        int [] aux = new int[this.cap * 2];
+        //2. Copiar todos os elementos existentes para o vetor novo
+        for (int i = 0; i < this.cap; i++){
+            aux[i] = this.elementos[i];
+        }
+        //3. Passar a utilizar o vetor novo, descartando o antigo
+        this.elementos = aux;
+        //4. Ajustar o valor da variável cap
+        this.cap = this.cap * 2;
+    }
+
+    public int getQtde() {
+        return qtde;
+    }
+
+    public int getCap() {
+        return cap;
+    }
+
+    private void reduzirCapacidade(){
+        //1. Alocar um vetor novo com a metade da capacidade
+        int [] aux = new int [this.cap / 2];
+        //2. Copiar todos os elementos existentes para o vetor novo
+        for (int i = 0; i < this.qtde; i++) {
+            aux[i] = this.elementos[i];
+        }
+        //3. Passar a utilizar o vetor novo, descartando o antigo
+        this.elementos = aux;
+        //4. Ajustar o valor da variável cap
+        this.cap /= 2;
+    }
+
+
 
     public void exibir (){
         System.out.printf ("Qtde: %d, Cap: %d\n", this.qtde, this.cap);
